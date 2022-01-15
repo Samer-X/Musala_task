@@ -3,18 +3,26 @@ package TestCase_2;
 import Data.LoadProperties;
 import Driver.DriverSetup;
 import commonUtils.CommonHelper;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import testCase2.TestCase2Helper;
 
-public class TestCase2 extends DriverSetup {
+public class TestCase2 {
 
     String URL = LoadProperties.useData.getProperty("URL");
+    String browser = LoadProperties.useData.getProperty("Browser");
     TestCase2Helper testCase2Helper = null;
+    WebDriver driver = null;
 
-    @BeforeSuite()
+
+    @BeforeTest()
     void initiate() {
+        DriverSetup.driverConf(browser);
+        driver = DriverSetup.getDriver();
+        driver.manage().window().maximize();
         testCase2Helper = new TestCase2Helper(driver);
     }
 

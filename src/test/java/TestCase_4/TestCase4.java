@@ -4,6 +4,7 @@ import Data.LoadProperties;
 import Driver.DriverSetup;
 import commonUtils.CommonHelper;
 import commonUtils.RandomSource;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -11,15 +12,21 @@ import org.testng.annotations.Test;
 import testCase3.TestCase3Helper;
 import testCase4.TestCase4Helper;
 
-public class TestCase4 extends DriverSetup {
+public class TestCase4 {
 
     String URL = LoadProperties.useData.getProperty("URL");
     String browser = LoadProperties.useData.getProperty("Browser");
     TestCase4Helper testCase4Helper = null;
+    WebDriver driver = null;
+
 
 
     @BeforeTest()
-    void initiate() {
+    void initiate()
+    {
+        DriverSetup.driverConf(browser);
+        driver = DriverSetup.getDriver();
+        driver.manage().window().maximize();
         testCase4Helper = new TestCase4Helper(driver);
     }
 
@@ -38,6 +45,6 @@ public class TestCase4 extends DriverSetup {
 
     @AfterTest()
     void closure() {
-        driver.quit();
+        driver.close();
     }
 }

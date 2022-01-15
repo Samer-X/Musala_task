@@ -80,12 +80,6 @@ public class DriverSetup {
         return driver;
     }
 
-    @BeforeSuite
-    public void initiateDriver() {
-        DriverSetup.driverConf(browser);
-        driver.manage().window().maximize();
-    }
-
 
     @AfterSuite
     public void stopDriver() {
